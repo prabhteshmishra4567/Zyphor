@@ -10,13 +10,33 @@ import { Footer } from "@/components/layout/Footer";
 export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-    setIsLoading(false);
-    setIsSubmitted(true);
+    setSubmitError("");
+
+    const formData = new FormData(event.currentTarget);
+    const encodedData = new URLSearchParams();
+    formData.forEach((value, key) => {
+      if (typeof value === "string") encodedData.append(key, value);
+    });
+
+    try {
+      const response = await fetch("/__forms.html", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encodedData.toString(),
+      });
+
+      if (!response.ok) throw new Error("Enquiry submission failed");
+      setIsSubmitted(true);
+    } catch {
+      setSubmitError("We couldn't send your enquiry. Please call or WhatsApp us instead.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -101,44 +121,49 @@ export default function ContactPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
+                  name="product-enquiry"
+                  method="POST"
+                  action="/__forms.html"
+                  data-netlify="true"
                   onSubmit={handleSubmit}
                   className="space-y-5"
                 >
+                  <input type="hidden" name="form-name" value="product-enquiry" />
                   <div className="grid gap-5 md:grid-cols-2">
                     <div>
-                      <label className="mb-2 block text-sm font-medium text-slate-700">Name</label>
-                      <input required type="text" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="Your name" />
+                      <label htmlFor="enquiry-name" className="mb-2 block text-sm font-medium text-slate-700">Name</label>
+                      <input id="enquiry-name" name="name" required type="text" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="Your name" />
                     </div>
                     <div>
-                      <label className="mb-2 block text-sm font-medium text-slate-700">Company Name</label>
-                      <input type="text" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="Company name" />
+                      <label htmlFor="enquiry-company" className="mb-2 block text-sm font-medium text-slate-700">Company Name</label>
+                      <input id="enquiry-company" name="company-name" type="text" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="Company name" />
                     </div>
                     <div>
-                      <label className="mb-2 block text-sm font-medium text-slate-700">Mobile Number</label>
-                      <input required type="tel" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="Your mobile number" />
+                      <label htmlFor="enquiry-mobile" className="mb-2 block text-sm font-medium text-slate-700">Mobile Number</label>
+                      <input id="enquiry-mobile" name="mobile-number" required type="tel" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="Your mobile number" />
                     </div>
                     <div>
-                      <label className="mb-2 block text-sm font-medium text-slate-700">City / State</label>
-                      <input type="text" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="City / State" />
+                      <label htmlFor="enquiry-location" className="mb-2 block text-sm font-medium text-slate-700">City / State</label>
+                      <input id="enquiry-location" name="city-state" type="text" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="City / State" />
                     </div>
                     <div>
-                      <label className="mb-2 block text-sm font-medium text-slate-700">Business Type</label>
-                      <input type="text" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="Distributor / Retailer / PCD" />
+                      <label htmlFor="enquiry-business" className="mb-2 block text-sm font-medium text-slate-700">Business Type</label>
+                      <input id="enquiry-business" name="business-type" type="text" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="Distributor / Retailer / PCD" />
                     </div>
                     <div>
-                      <label className="mb-2 block text-sm font-medium text-slate-700">Product Interested In</label>
-                      <input type="text" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="Product / category" />
+                      <label htmlFor="enquiry-product" className="mb-2 block text-sm font-medium text-slate-700">Product Interested In</label>
+                      <input id="enquiry-product" name="product-interest" type="text" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="Product / category" />
                     </div>
                   </div>
 
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-700">Required Quantity</label>
-                    <input type="text" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="Approximate quantity" />
+                    <label htmlFor="enquiry-quantity" className="mb-2 block text-sm font-medium text-slate-700">Required Quantity</label>
+                    <input id="enquiry-quantity" name="required-quantity" type="text" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="Approximate quantity" />
                   </div>
 
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-slate-700">Message</label>
-                    <textarea rows={5} className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="Tell us about your requirement..." />
+                    <label htmlFor="enquiry-message" className="mb-2 block text-sm font-medium text-slate-700">Message</label>
+                    <textarea id="enquiry-message" name="message" rows={5} className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="Tell us about your requirement..." />
                   </div>
 
                   <Button
@@ -158,6 +183,7 @@ export default function ContactPage() {
                       </span>
                     )}
                   </Button>
+                  {submitError && <p role="alert" className="text-sm text-red-700">{submitError}</p>}
                 </motion.form>
               ) : (
                 <motion.div
