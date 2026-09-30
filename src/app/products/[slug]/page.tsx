@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useParams } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight, MessageCircle } from "lucide-react";
 import { useProducts } from "@/context/ProductContext";
 import Link from "next/link";
 import { Header } from "@/components/layout/Header";
@@ -50,6 +50,17 @@ export default function ProductDetails() {
                 {product.shortDescription || product.description}
               </p>
             </header>
+
+            <a
+              href={`https://wa.me/919557646757?text=${encodeURIComponent("Hello, I would like to enquire about " + product.name + ".")}`}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex min-h-11 items-center gap-2 bg-brand-primary px-4 text-sm font-semibold text-white transition-colors hover:bg-brand-primary/90"
+            >
+              <MessageCircle className="h-4 w-4" aria-hidden="true" />
+              Enquire on WhatsApp
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </a>
 
             <section>
               <h2 className="text-xl font-semibold">What it is</h2>

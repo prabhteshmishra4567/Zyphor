@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import { Eye, Search } from "lucide-react";
+import { ArrowRight, Eye, MessageCircle, Search } from "lucide-react";
 import { CATEGORIES } from "@/data/categories";
 import { useProducts } from "@/context/ProductContext";
 import Link from "next/link";
@@ -80,18 +80,33 @@ export default function ShopPage() {
                       className="h-full w-full object-contain p-5 transition-transform duration-300 group-hover:scale-[1.03]"
                     />
                   </div>
-                  <div className="border-t border-border p-4">
-                    <p className="text-xs font-semibold uppercase text-brand-primary">{product.category}</p>
-                    <h2 className="mt-2 text-lg font-semibold text-foreground">{product.name}</h2>
-                    <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
-                      {product.shortDescription || product.description}
-                    </p>
-                    <span className="mt-5 inline-flex min-h-10 items-center gap-2 border border-brand-primary px-3 text-sm font-medium text-brand-primary transition-colors group-hover:bg-brand-primary group-hover:text-white">
+                </Link>
+                <div className="border-t border-border p-4">
+                  <p className="text-xs font-semibold uppercase text-brand-primary">{product.category}</p>
+                  <h2 className="mt-2 text-lg font-semibold text-foreground">{product.name}</h2>
+                  <p className="mt-2 line-clamp-2 text-sm leading-6 text-muted-foreground">
+                    {product.shortDescription || product.description}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    <Link
+                      href={`/products/${product.slug}`}
+                      className="inline-flex min-h-10 items-center gap-2 border border-brand-primary px-3 text-sm font-medium text-brand-primary transition-colors hover:bg-brand-primary hover:text-white"
+                    >
                       <Eye className="h-4 w-4" aria-hidden="true" />
                       View details
-                    </span>
+                    </Link>
+                    <a
+                      href={`https://wa.me/919557646757?text=${encodeURIComponent("Hello, I would like to enquire about " + product.name + ".")}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex min-h-10 items-center gap-2 bg-brand-primary px-3 text-sm font-medium text-white transition-colors hover:bg-brand-primary/90"
+                    >
+                      <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                      Enquire on WhatsApp
+                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    </a>
                   </div>
-                </Link>
+                </div>
               </article>
             ))}
           </div>
