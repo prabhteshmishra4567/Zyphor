@@ -1,0 +1,26 @@
+export type Product = {
+  id: string;
+  sku?: string;
+  stock?: number;
+  name: string;
+  slug: string;
+  description: string;
+  shortDescription?: string;
+  price: number;
+  originalPrice: number;
+  rating: number;
+  reviewCount: number;
+  category: string;
+  images: string[];
+  image?: string;
+  discountPrice?: number;
+  benefits?: string[];
+  ingredients?: string;
+  directions?: string;
+  warnings?: string;
+  isFeatured?: boolean;
+  isBestseller?: boolean;
+  featured?: boolean;
+  bestseller?: boolean;
+  stockStatus?: "In Stock" | "Low Stock" | "Out of Stock";
+};
