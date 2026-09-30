@@ -11,17 +11,39 @@ export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [whatsAppUrl, setWhatsAppUrl] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
     setSubmitError("");
+    setWhatsAppUrl("");
+
+    const whatsAppWindow = window.open("about:blank", "_blank");
+    if (whatsAppWindow) whatsAppWindow.opener = null;
 
     const formData = new FormData(event.currentTarget);
     const encodedData = new URLSearchParams();
     formData.forEach((value, key) => {
       if (typeof value === "string") encodedData.append(key, value);
     });
+
+    const enquiryFields: [string, string][] = [
+      ["Name", String(formData.get("name") ?? "").trim()],
+      ["Company", String(formData.get("company-name") ?? "").trim()],
+      ["Email", String(formData.get("email") ?? "").trim()],
+      ["Mobile", String(formData.get("mobile-number") ?? "").trim()],
+      ["City / State", String(formData.get("city-state") ?? "").trim()],
+      ["Business Type", String(formData.get("business-type") ?? "").trim()],
+      ["Product Interested In", String(formData.get("product-interest") ?? "").trim()],
+      ["Required Quantity", String(formData.get("required-quantity") ?? "").trim()],
+      ["Message", String(formData.get("message") ?? "").trim()],
+    ];
+    const whatsAppMessage = [
+      "New product enquiry",
+      ...enquiryFields.filter(([, value]) => value).map(([label, value]) => `${label}: ${value}`),
+    ].join("\n");
+    const nextWhatsAppUrl = `https://wa.me/919557646757?text=${encodeURIComponent(whatsAppMessage)}`;
 
     try {
       const response = await fetch("/__forms.html", {
@@ -31,8 +53,11 @@ export default function ContactPage() {
       });
 
       if (!response.ok) throw new Error("Enquiry submission failed");
+      setWhatsAppUrl(nextWhatsAppUrl);
       setIsSubmitted(true);
+      if (whatsAppWindow) whatsAppWindow.location.href = nextWhatsAppUrl;
     } catch {
+      whatsAppWindow?.close();
       setSubmitError("We couldn't send your enquiry. Please call or WhatsApp us instead.");
     } finally {
       setIsLoading(false);
@@ -201,9 +226,14 @@ export default function ContactPage() {
                   </div>
                   <h3 className="mt-5 text-2xl font-bold text-slate-900">Thank you</h3>
                   <p className="mt-3 text-slate-700">
-                    Your enquiry has been received successfully. Our team will contact you regarding product availability, pricing and business opportunities.
+                    Your enquiry has been received. WhatsApp opens with your details ready; review the message and tap Send to share it with our team.
                   </p>
-                  <Button variant="outline" className="mt-6 rounded-full border-emerald-700 text-emerald-700" onClick={() => setIsSubmitted(false)}>
+                  {whatsAppUrl && (
+                    <a href={whatsAppUrl} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 font-semibold text-emerald-700 hover:underline">
+                      Open WhatsApp to send enquiry <ArrowRight className="h-4 w-4" />
+                    </a>
+                  )}
+                  <Button variant="outline" className="mt-6 rounded-full border-emerald-700 text-emerald-700" onClick={() => { setIsSubmitted(false); setWhatsAppUrl(""); }}>
                     Send Another Enquiry
                   </Button>
                 </motion.div>
