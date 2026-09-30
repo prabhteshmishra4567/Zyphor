@@ -216,7 +216,12 @@ export default function Home() {
                       <div className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-emerald-700">{product.category}</div>
                       <h3 className="text-2xl font-bold text-slate-900">{product.name}</h3>
                       <p className="mt-3 text-sm leading-6 text-slate-600">{product.description}</p>
-                      <Link href="/contact" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-emerald-700">
+                      <Link
+                        href={`https://wa.me/919557646757?text=${encodeURIComponent("Hello, I would like to enquire about " + product.name + ".")}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-emerald-700"
+                      >
                         Enquire now <ArrowRight className="h-4 w-4" />
                       </Link>
                     </div>
