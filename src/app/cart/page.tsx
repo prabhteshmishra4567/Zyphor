@@ -38,7 +38,7 @@ export default function CartPage() {
               <div className="text-center py-24 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm">
                 <ShoppingCart className="w-16 h-16 text-slate-700 mx-auto mb-6" />
                 <h2 className="text-2xl font-bold text-white mb-2">Your cart is empty</h2>
-                <p className="text-slate-400 mb-8">Looks like you haven't added any wellness products yet.</p>
+                <p className="text-slate-400 mb-8">Looks like you haven&apos;t added any wellness products yet.</p>
                 <Link href="/shop">
                   <Button variant="secondary" className="px-8 py-4 rounded-full bg-cyan-500 hover:bg-cyan-600 text-white border-none">
                     Explore Shop

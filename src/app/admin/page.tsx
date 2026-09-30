@@ -22,7 +22,7 @@ export default function AdminDashboard() {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-slate-900">Dashboard Overview</h1>
-            <p className="text-slate-500">Welcome back, Admin. Here is what's happening today.</p>
+            <p className="text-slate-500">Welcome back, Admin. Here is what&apos;s happening today.</p>
           </div>
           <Button>Download Report</Button>
         </div>

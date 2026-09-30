@@ -111,7 +111,7 @@ export default function RegisterPage() {
                 <CheckCircle2 className="w-3 h-3" /> Secure Account
               </div>
               <p className="text-[11px] text-muted-foreground leading-relaxed">
-                By creating an account, you agree to Zyphor's Terms of Service and Privacy Policy. We use industry-standard encryption to protect your data.
+                By creating an account, you agree to Zyphor&apos;s Terms of Service and Privacy Policy. We use industry-standard encryption to protect your data.
               </p>
             </div>
 

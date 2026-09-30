@@ -1,6 +1,14 @@
+type MockCoupon = {
+  discountValue: number;
+  discountType: "PERCENTAGE" | "FIXED";
+  isActive: boolean;
+  expiryDate: Date;
+  minOrderValue: number;
+};
+
 export async function validateCoupon(code: string, orderValue: number) {
   // Mock coupon logic
-  const mockCoupons: Record<string, any> = {
+  const mockCoupons: Record<string, MockCoupon> = {
     "WELCOME10": { discountValue: 10, discountType: "PERCENTAGE", isActive: true, expiryDate: new Date("2030-01-01"), minOrderValue: 0 },
     "SAVE20": { discountValue: 20, discountType: "PERCENTAGE", isActive: true, expiryDate: new Date("2030-01-01"), minOrderValue: 50 },
   };

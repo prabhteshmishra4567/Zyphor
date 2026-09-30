@@ -36,14 +36,15 @@ const categorySchema = z.object({
 });
 
 type CategoryFormValues = z.infer<typeof categorySchema>;
+type ManagedCategory = CategoryFormValues & { id: string };
 
 export function CategoryManagement() {
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<ManagedCategory[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<any>(null);
+  const [selectedCategory, setSelectedCategory] = useState<ManagedCategory | null>(null);
 
-  const form = useForm({
+  const form = useForm<z.input<typeof categorySchema>, unknown, CategoryFormValues>({
     resolver: zodResolver(categorySchema),
     defaultValues: {
       name: "",
@@ -104,7 +105,7 @@ export function CategoryManagement() {
     }
   }
 
-  function handleEdit(category: any) {
+  function handleEdit(category: ManagedCategory) {
     setSelectedCategory(category);
     setIsEditing(true);
     form.reset({

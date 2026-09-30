@@ -47,13 +47,14 @@ export function DialogTrigger({
     return <>{children}</>;
   }
 
-  if (asChild && React.isValidElement(children)) {
-    return React.cloneElement(children as React.ReactElement<any>, {
+  if (asChild && React.isValidElement<{ onClick?: React.MouseEventHandler; className?: string }>(children)) {
+    const childProps = children.props;
+    return React.cloneElement(children, {
       onClick: (event: React.MouseEvent) => {
-        (children as React.ReactElement<any>).props.onClick?.(event);
+        childProps.onClick?.(event);
         context.setOpen(true);
       },
-      className: cn(className, (children as React.ReactElement<any>).props.className),
+      className: cn(className, childProps.className),
     });
   }
 

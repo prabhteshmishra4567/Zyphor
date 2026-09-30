@@ -1,13 +1,15 @@
+import { adminApiUnavailable } from "@/lib/admin-api";
+
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  return Response.json({ id: "mock-category-id" });
+  return adminApiUnavailable();
 }
 
 export async function PUT() {
-  return Response.json({ success: true });
+  return adminApiUnavailable();
 }
 
 export async function DELETE() {
-  return Response.json({ success: true });
+  return adminApiUnavailable();
 }

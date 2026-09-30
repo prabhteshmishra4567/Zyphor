@@ -7,7 +7,14 @@ import { Button } from "@/components/ui/Button";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
-const PricingPlan = ({ plan, featured = false }: { plan: any, featured?: boolean }) => {
+type PricingPlanData = {
+  name: string;
+  price: string;
+  description: string;
+  features: string[];
+};
+
+const PricingPlan = ({ plan, featured = false }: { plan: PricingPlanData, featured?: boolean }) => {
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -116,7 +123,7 @@ export default function PricingPage() {
             Plans for <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan-400 to-violet-400">Every Life</span>
           </motion.h1>
           <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-            Whether you're starting your wellness journey or optimizing peak performance, 
+            Whether you&apos;re starting your wellness journey or optimizing peak performance,
             Zyphor has a tailored plan to support your longevity.
           </p>
         </div>

@@ -37,14 +37,15 @@ const couponSchema = z.object({
 });
 
 type CouponFormValues = z.infer<typeof couponSchema>;
+type ManagedCoupon = CouponFormValues & { id: string };
 
 export function CouponManagement() {
-  const [coupons, setCoupons] = useState<any[]>([]);
+  const [coupons, setCoupons] = useState<ManagedCoupon[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
-  const [selectedCoupon, setSelectedCoupon] = useState<any>(null);
+  const [selectedCoupon, setSelectedCoupon] = useState<ManagedCoupon | null>(null);
 
-  const form = useForm({
+  const form = useForm<z.input<typeof couponSchema>, unknown, CouponFormValues>({
     resolver: zodResolver(couponSchema),
     defaultValues: {
       code: "",
@@ -107,7 +108,7 @@ export function CouponManagement() {
     }
   }
 
-  function handleEdit(coupon: any) {
+  function handleEdit(coupon: ManagedCoupon) {
     setSelectedCoupon(coupon);
     setIsEditing(true);
     form.reset({

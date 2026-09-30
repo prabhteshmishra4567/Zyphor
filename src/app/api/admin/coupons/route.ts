@@ -1,9 +1,11 @@
+import { adminApiUnavailable } from "@/lib/admin-api";
+
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  return Response.json([]);
+  return adminApiUnavailable();
 }
 
 export async function POST() {
-  return Response.json({ success: true });
+  return adminApiUnavailable();
 }

@@ -15,8 +15,18 @@ import {
 import { Badge } from "@/components/ui/Badge";
 import { toast } from "sonner";
 
+type Review = {
+  id: string;
+  user?: { name?: string };
+  product?: { name?: string };
+  isVerified?: boolean;
+  isHidden: boolean;
+  rating: number;
+  comment?: string;
+};
+
 export function ReviewManagement() {
-  const [reviews, setReviews] = useState<any[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

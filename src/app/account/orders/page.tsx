@@ -53,7 +53,7 @@ export default function OrdersPage() {
             <Package className="w-8 h-8 text-slate-400" />
           </div>
           <h3 className="text-lg font-semibold text-slate-900">No orders yet</h3>
-          <p className="text-slate-500 mb-6">Looks like you haven't placed any orders yet.</p>
+          <p className="text-slate-500 mb-6">Looks like you haven&apos;t placed any orders yet.</p>
           <Link href="/shop">
             <Button className="bg-blue-600 hover:bg-blue-700">Start Shopping</Button>
           </Link>

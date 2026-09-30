@@ -11,7 +11,7 @@ export default function PaymentCancelPage() {
         </div>
         <h1 className="text-3xl font-bold text-slate-900">Payment Cancelled</h1>
         <p className="text-slate-500">
-          You've cancelled the checkout process. Don't worry, your items are still safely saved in your cart.
+          You&apos;ve cancelled the checkout process. Don&apos;t worry, your items are still safely saved in your cart.
         </p>
         <div className="flex flex-col gap-3">
           <Link href="/checkout">

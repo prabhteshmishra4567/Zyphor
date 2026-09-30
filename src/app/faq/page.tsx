@@ -3,12 +3,13 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, HelpCircle, ShieldCheck, Truck, CreditCard, Package } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import Link from "next/link";
 
-const FAQItem = ({ question, answer, icon: Icon, index }: { question: string, answer: string, icon: any, index: number }) => {
+const FAQItem = ({ question, answer, icon: Icon, index }: { question: string, answer: string, icon: LucideIcon, index: number }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
