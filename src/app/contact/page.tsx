@@ -139,8 +139,12 @@ export default function ContactPage() {
                       <input id="enquiry-company" name="company-name" type="text" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="Company name" />
                     </div>
                     <div>
+                      <label htmlFor="enquiry-email" className="mb-2 block text-sm font-medium text-slate-700">Email Address</label>
+                      <input id="enquiry-email" name="email" required type="email" autoComplete="email" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="you@example.com" />
+                    </div>
+                    <div>
                       <label htmlFor="enquiry-mobile" className="mb-2 block text-sm font-medium text-slate-700">Mobile Number</label>
-                      <input id="enquiry-mobile" name="mobile-number" required type="tel" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="Your mobile number" />
+                      <input id="enquiry-mobile" name="mobile-number" required type="tel" inputMode="tel" pattern="(?:[+]91[ -]?)?[6-9][0-9]{4}[ -]?[0-9]{5}" maxLength={16} title="Enter a 10-digit Indian mobile number, optionally prefixed with +91." autoComplete="tel" className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0 transition focus:border-emerald-500" placeholder="+91 95576 46757" />
                     </div>
                     <div>
                       <label htmlFor="enquiry-location" className="mb-2 block text-sm font-medium text-slate-700">City / State</label>
